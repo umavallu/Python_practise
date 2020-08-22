@@ -40,9 +40,47 @@ s=d.pop(1)
 print('popped item: ',s)
 #print(d.pop(9))
 print(d)
+#write a program to create a dict with each letter as key, and occurance as the value
+#METHOD1
+s=input('Enter any word: ')
+d={}
+for i in s:
+    if  i not in d.keys():
+        d[i]=1
+        #print(i,'does not exists in ',d)
+    else:
+        d[i]=d[i]+1
+        #print(i, 'exists in ',d)
+print(d)
+#METHOD2(using dict.get(key,defaultvalue)
+s=input('Enter any word: ')
+d={}
+for i in s:
+    d[i]=d.get(i,0)+1
+#for k,v in d.items():
+#    print('Key : ',k,' Value : ',v)
+print(d)
+#popping all the values in the dict
+#method1(keys())
+l=list(d.keys())
+for i in l:
+    d.pop(i)
+print(d)
+#method2(items())
+key_value=list(d.items())
+for i in key_value:
+    d.pop(i)
+print(d)
+#using setdefault(key,value)
+d={1:'uma',2:'vijay',3:'adithya'}
+print(d)
+print(d.setdefault(4,'pradyumna'))
+print(d.setdefault(1,'mahee'))
+print(d.setdefault(5,'uma'))
+print(d)
 
-#collection
-#collection
+#collection merging
+
 '''list and tuple --yes
 tuple and tuple
 list and list
@@ -87,3 +125,20 @@ l3s=list(zip(l,s))
 print(l3s)
 l4d=dict(zip(d,l))
 print(l4d)
+d={'maths':100,'science':80,'social':58,'hindi':76,'telugu':86,'english':56}
+print(d)
+sum_of_values=sum(d.values())
+print('Student score is: ',sum_of_values)
+####nested dict
+dnested={'student1':{'name':'uma','marks':[84,76,56,86,65,53]},
+         'student2':{'name':'vijay','marks':[89,79,64,90,76,79]}
+ }
+for key,value in dnested.items():
+    print('key: ',key,' value: ',value)
+
+d_nested={'student1':'uma','marks_uma':{'maths':100,'science':80,'social':58,'hindi':76,'telugu':86,'english':56},
+          'student2':'vijay','marks_vijay':{'maths':89,'science':76,'social':79,'hindi':79,'telugu':89,'english':64}
+          }
+for key,value in d_nested.items():
+    print('key: ',key,' value: ',value)
+print('value of marks vijay:',d_nested['marks_vijay']['english'])
