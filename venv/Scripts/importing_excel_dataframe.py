@@ -1,144 +1,83 @@
-###############################################
-# wap to read names and marks for dict and print them
-d={}
-l=int(input('Enter how many student records u want to enter:'))
-for i in range(l):
-    name=input('Enter student name: ')
-    marks=int(input('Enter student marks in percentage: '))
-    d[name]=marks
-for i in d.items():
-    print(i)
-################################################################
-#accessing elemets
-d={1:'one',2:'two',3:'three',4:'four',5:'five'}
-print(d)
-d[1]='ONE'
-print(d)
-del d[1]
-#del d[6]
-print(d)
-del d
-#print(d)
-#################################################################
-#creating a dict with other sequences
-#method1
-d=dict({(1,'one'),(2,'two'),(3,'three')})
-print(d)
-#method2
-d=dict([(1,'one'),(2,'two'),(3,'three')])
-print(d)
-#################################################################
-#working with dict len(),clear(),get(),get(key,default value),pop(),popitem()
-d=dict([(1,'one'),(2,'two'),(3,'three')])
-print(d)
-print(len(d))
-print(d.get(1))
-print(d.get(5,'five'))
-print(d)
-print(d.get(7))
-s=d.pop(1)
-print('popped item: ',s)
-#print(d.pop(9))
-print(d)
-#write a program to create a dict with each letter as key, and occurance as the value
-#METHOD1
-s=input('Enter any word: ')
-d={}
-for i in s:
-    if  i not in d.keys():
-        d[i]=1
-        #print(i,'does not exists in ',d)
-    else:
-        d[i]=d[i]+1
-        #print(i, 'exists in ',d)
-print(d)
-#METHOD2(using dict.get(key,defaultvalue)
-s=input('Enter any word: ')
-d={}
-for i in s:
-    d[i]=d.get(i,0)+1
-#for k,v in d.items():
-#    print('Key : ',k,' Value : ',v)
-print(d)
-#popping all the values in the dict
-#method1(keys())
-l=list(d.keys())
-for i in l:
-    d.pop(i)
-print(d)
-#method2(items())
-key_value=list(d.items())
-for i in key_value:
-    d.pop(i)
-print(d)
-#using setdefault(key,value)
-d={1:'uma',2:'vijay',3:'adithya'}
-print(d)
-print(d.setdefault(4,'pradyumna'))
-print(d.setdefault(1,'mahee'))
-print(d.setdefault(5,'uma'))
-print(d)
+#positional arguments
+def multiplication_table(a):
+  for i in range(1,21):
+      print('{} * {} = {}'.format(a,i,a*i))
+multiplication_table(1) # 1 is the positional argument
+multiplication_table(2) # 2 is the positional argument
+multiplication_table(3) # 3 is the positional argument
+# Finding Factorial
+#Method1
+def factorial(a):
+    fact_value=a
+    i=a
+    while i>1:
+        fact_value=fact_value*(i-1)
+        i=i-1
+    return fact_value
+print('Factorial value of 3 is:',factorial(3))
+#Method2
+def factorial(a):
+    fact_value=a
+    if a !=1:
+        fact_value=fact_value*factorial(a-1)
+    return fact_value
+print('factorial of 4 is :',factorial(4))
+#Returning multiple values
+def arithmetic_op(a,b): #def arithmetic_op(a,b=1)--> no error and def arithmetic_op(a=10,b)---> error
+    add_value=a+b
+    diff_value=(a-b if a>b else b-a)
+    mul_value=a*b
+    div_value=a/b
+    exp_value=a**b
+    return add_value,diff_value,mul_value,div_value,exp_value
+a,b,c,d,e=arithmetic_op(10,4) #a,b,c,d,e=arithmetic_op(10,b=4)=> no error and a,b,c,d,e=arithmetic_op(a=10,4)-->error
+print('Addition of 10 and 4 is:',a)
+print('Difference of 10 and 4 is:',b)
+print('10*4 is:',c)
+print('10/4 is:',d)
+print('exponential value of 10 and 4 is:',e)
 
-#collection merging
+#default arguments
+def sum(a,b=5):
+    sum=a+b
+    print('Total of {} and {} is: {}'.format(a,b,sum))
+sum(a=6,6)
 
-'''list and tuple --yes
-tuple and tuple
-list and list
-set and list
-set and tuple
-'''
-l=[1,2,3,4]
-t=(4,5,6,7)
-lt=(*l,*t)#list and tuple--> tuple
-print(lt)
-s={10,20,30,40}
-s1={(2,3),(4,5),(6,7),(8,9)}
-ll=[*l,*l]#list and list--> list
-print('list and list',ll)
-lsl=[*l,*s]#list and tuple--> tuple
-print('list and set',lsl)
-ts={*t,*s}#tuple and set-->set
-print('tuple and set',ts)
-lss={*l,*s}#list and set--> set
-print('list and set',lss)
-tst=(*t,*s)#tuple and set-->tuple
-print('tuple and set',tst)
-ls1l=[*l,*s1]#list and tuple--> tuple
-print('list and set',ls1l)
-ts1={*t,*s1}#tuple and set-->set
-print('tuple and set',ts1)
-ls1s1={*l,*s1}#list and set--> set
-print('list and set',ls1s1)
-ts1t=(*t,*s1)#tuple and set-->tuple
-print('tuple and set',ts1t)
-#dict works with only dict??
-d={1:'one',2:'two',3:'three'}
-d1={1:'hi',4:'four'}
-dd1={**d,**d1}
-print(dd1)
-#zipping of sequences
-l3=zip(l,t)
-l4=list(l3)
-print(l4)
-s= ((6, 7), (8, 9), (10, 11), 12)
-l3s=list(zip(l,s))
-print(l3s)
-l4d=dict(zip(d,l))
-print(l4d)
-d={'maths':100,'science':80,'social':58,'hindi':76,'telugu':86,'english':56}
-print(d)
-sum_of_values=sum(d.values())
-print('Student score is: ',sum_of_values)
-####nested dict
-dnested={'student1':{'name':'uma','marks':[84,76,56,86,65,53]},
-         'student2':{'name':'vijay','marks':[89,79,64,90,76,79]}
- }
-for key,value in dnested.items():
-    print('key: ',key,' value: ',value)
-
-d_nested={'student1':'uma','marks_uma':{'maths':100,'science':80,'social':58,'hindi':76,'telugu':86,'english':56},
-          'student2':'vijay','marks_vijay':{'maths':89,'science':76,'social':79,'hindi':79,'telugu':89,'english':64}
-          }
-for key,value in d_nested.items():
-    print('key: ',key,' value: ',value)
-print('value of marks vijay:',d_nested['marks_vijay']['english'])
+#variable length arguments
+#variable length argument with *
+def tuple_dict(*args,n):
+    sum,total=0,0
+    for i in args:
+        sum=sum+i
+    total=sum+n
+    return total,sum
+total,sum=tuple_dict(10,20,30,40,n=100)
+print('total: ',total,' sum: ',sum)
+#variable length arguments with * and **
+def tuple_dict(*marks,**stu_details):
+    score=0
+    for i in marks:
+        score=score+i
+    j=stu_details.items()
+    return score,j
+d={}
+total,d=tuple_dict(10,20,30,40,50,name='uma',school='saikrishna',class_name='board')
+for k,v in d:
+    print(k,' : ',v)
+print('score: ',total)
+#Function with unknown number of arguments
+def tuple_sum(*l):
+    sum=0
+    for i in l:
+        sum=sum+i
+    return sum
+print('tuple_sum([1,2,3,4,5] : ',tuple_sum(1,2,3,4,5))
+#Function to add elements in list(created using list comprehension)
+j=[int(i) for i in input('enter list:').split(',')]
+print(j)
+def list_collection_sum(l):
+    sum=0
+    for i in l:
+        sum=sum+i
+    return sum
+print('sum of {} is : {}'.format(j,list_collection_sum(j)))
