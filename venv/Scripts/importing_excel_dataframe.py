@@ -1,3 +1,10 @@
+
+a=10
+def f1():
+    global a
+    print(a)
+
+f1()
 #positional arguments
 def multiplication_table(a):
   for i in range(1,21):
@@ -45,13 +52,13 @@ sum(a=6,6)
 
 #variable length arguments
 #variable length argument with *
-def tuple_dict(*args,n):
+def tuple_t(*args,n):
     sum,total=0,0
     for i in args:
         sum=sum+i
     total=sum+n
     return total,sum
-total,sum=tuple_dict(10,20,30,40,n=100)
+total,sum=tuple_t(10,20,30,40,n=100)
 print('total: ',total,' sum: ',sum)
 #variable length arguments with * and **
 def tuple_dict(*marks,**stu_details):
@@ -65,6 +72,23 @@ total,d=tuple_dict(10,20,30,40,50,name='uma',school='saikrishna',class_name='boa
 for k,v in d:
     print(k,' : ',v)
 print('score: ',total)
+
+######################################
+# 0 1 1 2 3 5 8
+def fib(num):
+    if num == 0:
+        return 0
+    elif num == 1:
+        return 1
+    else:
+        return (fib(num - 2) + fib(num - 1))
+
+
+num = int(input('Enter how many numbers u want in fibonacci series: '))
+for i in range(0, num):
+    print(fib(i), end=' ')
+
+
 #Function with unknown number of arguments
 def tuple_sum(*l):
     sum=0
