@@ -1,172 +1,349 @@
+
+
+############
+#Interface
+#an abstract class with only abstract methods
+##########################
+#abstraction
+####################
+#abstract method with out child class
+#with abstract class
+#scenario 1
+#cant instantiate for abstract class with abstract method(which is incomplete)
 '''
-class Outer:
-    def __init__(self):
-        print('Hello outer')
-    class Inner:
-        def __init__(self):
-            print('hello,Inner')
-        def m1(self):
-            print('Method m1')
-#o=Outer().Inner().m1()
-# or
-o=Outer()
-i=o.Inner()
-i.m1()
+from abc import abstractmethod,ABC
+class Parent(ABC):
+    @abstractmethod
+    def m1(self):
+        pass
+p=Parent()
+p.m1()
+#Abstract class with completed abstract method
+#scenario 2
+from abc import abstractmethod,ABC
+class Parent(ABC):
+    @abstractmethod
+    def m1(self):
+        print('HI Everybody')
+p=Parent()
+p.m1()
+#abstract method(use abstract decorator,which u need to import for abc(abstract base class module) module)
+#it will not throw error bcz u dint inherit from abstract class ABC
+#here Abstact_method class is abstract class
+#scenario 3
 
-#creating inner class object with in outer class definition
+from abc import abstractmethod
+class Abstract_method:
+    @abstractmethod
+    def m1(self):
+        pass
+a=Abstract_method()
 
-class Person:
-    def __init__(self):
-        self.name="UmaMaheswari"
-        self.dob=self.Dob()
-    def display_name(self):
-        print('Name :',self.name)
-    class Dob:
-        def __init__(self):
-            self.dd='29'
-            self.mm='09'
-            self.yy='1987'
-        def display_dob(self):
-            print('Date of Birth:{}/{}/{}'.format(self.dd,self.mm,self.yy))
-p=Person()
-x=p.dob
-p.display_name()
-x.display_dob()
-#------------------------------------------------------
-#inner class
-class Human:
-    def __init__(self):
-        self.name="Uma Maheswari"
-        self.head=self.Head()
-        self.brain=self.Brain()
-    def display(self):
-        print('Name:',self.name)
-        print('Welcome to  meet my head and brain')
-    class Head:
-        def display(self):
-            print('Head is working')
-    class Brain:
-        def display(self):
-            print('YOur brain is active')
-h=Human()
-h.display()
-h.head.display()
-h.brain.display()
-
-
-#--------------------------------------------------------------
-#Has a relation ship
-# or composition
-class Processor:
-    intel_gold='Intel Xeon Gold'
-    intel_platinum='Intel Xeon platinum'
-    def __init__(self):
-        print('you are in processor class')
-    def display(self):
-        print('The different processors available are:{} and {}'.format(Processor.intel_gold,Processor.intel_platinum))
-class Graphics_card:
-    nvidia_p='Nvidia Graphics card'
-    amd_p='Amd Graphics card'
-    def __init__(self):
-        print('you are in Graphics card class')
-    def display(self):
-        print('The available Graphics cards are:{} and {}'.format(Graphics_card.nvidia_p,Graphics_card.amd_p))
-class  Dell:
-    def __init__(self):
-        print('You are in Dell class')
-        self.processor=Processor()
-        self.graphics=Graphics_card()
-    def display(self):
-        print('My Dell computer details')
-        print(self.processor.intel_gold)
-        print(self.graphics.amd_p)
-d=Dell()
-d.display()
-#---------------------------------------------------
-# Has -a- relation
-class Car:
-    def __init__(self,name,model,color):
-        self.name=name
-        self.model=model
-        self.color=color
-    def getcarinfo(self):
-        print('Car name : {}, Model : {} and Car\'s color:{}'.format(self.name,self.model,self.color))
-class Employee:
-    def __init__(self,ename,empno,car):
-        self.empno=empno
-        self.ename = ename
-        self.car=car
-    def getempinfo(self):
-        print('Empno : {} ,Ename:{} '.format(self.empno,self.ename))
-        self.car.getcarinfo()
-
-c=Car('Camry','SE','grey')
-e=Employee('Vijay',20,c)
-e.getempinfo()
-
-#----------------------------------------------------------------
-#inheritance
-#class Child(Parent):
-class Parent:
-    a=10
-    def __init__(self):
-        self.b=20
-        print('parent class')
-    def add(self):
-        c=Parent.a+self.b
-        print('sum of a static variable \'a\' and instance variable \'b\' in this example:',c)
-    @classmethod
-    def m2(cls):
-        print('Displaying static variable in class method',cls.a)
-    @staticmethod
-    def m3():
-        print('displaying static variable in a static method',Parent.a)
+#Scenario 4
+#ABstact parent class with abstract child class
+#cant instantiate
+from abc import abstractmethod,ABC
+class Parent(ABC):
+    @abstractmethod
+    def m1(self):
+        pass
 class Child(Parent):
     pass
 c=Child()
-print('a: {}, b:{}'.format(c.a,c.b))
-c.add()
-c.m2()
-c.m3()
+# abstract method in abstract class with concrete child class
+from abc import abstractmethod,ABC
+class Parent(ABC):
+    @abstractmethod
+    def m1(self):
+        pass
+class Child(Parent):
+    def m1(self):
+        print('Hello')
+c=Child()
+c.m1()
+#Child class inherited from abstract class interface
+from abc import abstractmethod,ABC
+class Vehicle(ABC):
+    @abstractmethod
+    def engine(self):
+        pass
+    @abstractmethod
+    def tyres(self):
+        pass
+    @abstractmethod
+    def battery(self):
+        pass
+class Car(Vehicle):
+    def engine(self):
+        print('My Car engine is OPOC')
+    def tyres(self):
+        print('My car tyres are TOYO Open Country')
+    def battery(self):
+        print('MY car battery is Diehard Platinum')
+c=Car()
+c.engine()
+c.tyres()
+c.battery()
 
-#--------------------------------------------
-#INHERITANCE OR IS A RELATION
-class P:
-    def  __init__(self,a,b):
-        print('parent constructor')
-        self.a=a
-        self.b=b
-    def add(self):
-        self.c=self.a+self.b
-        print('Addition of {} and {} is {}'.format(self.a,self.b,self.c))
-class C(P):
-    def __init__(self,a,b):
-        print('child constructor')
-        super().__init__(a,b)
-    def diff(self):
-        if self.a>self.b:
-            c=self.a-self.b
+
+# Abstract class with both abstract and non abstract methods
+
+from abc import abstractmethod,ABC
+class Vehicle(ABC):
+    @abstractmethod
+    def engine(self):
+        pass
+    def tyres(self):
+        print('My car tyres are TOYO Open Country')
+    def battery(self):
+        print('MY car battery is Diehard Platinum')
+class Car(Vehicle):
+    def engine(self):
+        print('My Car engine is OPOC')
+c=Car()
+c.engine()
+c.tyres()
+c.battery()
+###################
+# polymorphism
+###############
+#overriding
+class Father:
+    def input_name(self,name):
+        self.name=name
+    def display(self):
+        print('Father\'s name is: ',self.name)
+class Mother(Father):
+    def display(self):
+        #super().input_name('koteswararao')
+        super().display()
+        print('Mother\'s name is: Ramadevi')
+m=Mother()
+m.input_name('koteswararao')
+m.display()
+
+
+#sample overloading
+class Duck:
+    def m1(self):
+        print('Quack')`12wedfv 
+class Cat:
+    def m1(self):
+        print('Meow')
+class Dog:
+    def m1(self):
+        print('Bow wow')
+class Cow:
+    def m1(self):
+        print('Moo')
+l=[Duck(),Cat(),Dog(),Cow()]
+for i in l:
+    i.m1()
+
+#same class objects 
+#<,>,<=,>=
+class Student:
+    def __init__(self,name,marks):
+        self.name=name
+        self.marks=marks
+    def score(self):
+        total=0
+        for i in self.marks:
+            total=total+i
+        self.total_marks=total
+    def display(self):
+        print('Name:',self.name)
+        print('Score:',self.total_marks)
+    def __gt__(self,other):
+        return self.total_marks>=other.total_marks
+    def __le__(self,other):
+        return self.total_marks<=other.total_marks
+
+s=Student('Uma',[98,67,87,98,89,100])
+s.score()
+s.display()
+s1=Student('Vijay',[89,90,98,78,89,78])
+s1.score()
+s1.display()
+print(s.name,' gets more marks than ',s1.name,':',s>s1)
+print(s.name,' gets less marks than ',s1.name,':',s<s1)
+print(s.name,' gets more marks than ',s1.name,':',s>=s1)
+print(s.name,' gets more marks than ',s1.name,':',s<=s1)
+
+#multiplication
+class  Car:
+    def __init__(self,carmodel,price,company):
+        self.carmodel=carmodel
+        self.price=price
+        self.company=company
+    def display(self):
+        print('Car Details')
+        print('Model:',self.carmodel)
+        print('Price:',self.price)
+        print('Company:',self.company)
+    def __mul__(self,other):
+        return self.price*other.emi_percent
+class EMI:
+    def __init__(self,emi_percent,duration):
+        self.emi_percent=emi_percent
+        self.duration=duration
+    def __mul__(self,other):
+        return (self.emi_percent*100)*other.duration
+c=Car('SE',15000.00,'Toyota')
+if hasattr(c,'display'):
+    c.display()
+else:
+    print('Display() method does not exist')
+e=EMI(0.0183,55)
+print('The monthly payment for car:',c*e)
+print('Total emi payment:',e*e)
+
+
+#############
+#super() method to access parent class variables, methods and constructors
+class Parent:
+    job='yes'
+    def __init__(self,name,city,married):
+        self.name=name
+        self.city=city
+        self.married=married
+    def info(self):
+        print('Hi, my name is ',self.name)
+        print('Currently iam staying in ',self.city)
+        print('Iam ',self.married)
+    @classmethod
+    def jobinfo(cls):
+        print('Iam ',cls.job)
+
+class Child(Parent):
+    job='no'
+    def __init__(self,name,city,married,cname,cage):
+        super().__init__(name,city,married)
+        self.cname=cname
+        self.cage=cage
+    def info(self):
+        super().info()
+        super().jobinfo()
+        print(super().job,self.name)
+        print(self.cname,'is ',self.job,' working')
+c=Child('uma','lafayette','yes','adithya',8)
+c.info()
+
+
+
+#MRO Example 2
+class D:
+    def m1(self):
+        print('D class')
+class E:
+    def m1(self):
+        print('E class')
+class F:
+    def m1(self):
+        print('F class')
+class B(D,E):
+    def m1(self):
+        print('B class')
+class C(D,F):
+    def m1(self):
+        print('C class')
+class A(B,C):
+    def m1(self):
+        print('A class')
+        super().m1()
+a=A()
+a.m1()
+print(A.mro())
+
+#               a
+#           /       \
+#          b          c
+#           \       /
+#               d
+# Method Resolution Order or mro()
+#Classname.mro()
+class a:
+    def m1(self):
+        print('a class')
+class b(a):
+    def m1(self):
+        print('b class')
+class c(a):
+    def m1(self):
+        print('c class')
+class d(b,c):
+    def m1(self):
+        print('d class')
+print(a.mro())
+print(b.mro())
+print(c.mro())
+print(d.mro())
+
+
+#Multiple Ingeritance
+#    a              b
+#       \       /
+#           c
+class Parent1():
+    def add(self,a,b):
+        self.c=a+b
+        print('sum of ',a,' ',b,' is:',self.c)
+    def m1(self):
+        print('hello Parent1')
+class Parent2():
+    def sub(self,a,b):
+        #c=a-b if: a>b else b-a
+        if a>b:
+            self.c=a-b
         else:
-            c=self.b-self.a
-        print('Difference of {} and {} is {}'.format(self.a,self.b,c))
-    def product(self):
-        print('Product of {} and {} is {}'.format(self.a,self.b,self.a*self.b))
-    def div(self):
-        print('division of {} and {} is {}'.format(self.a,self.b,self.a/self.b))
+            self.c=b-a
+        print('Subtraction of ',a,' ',b,' is ',self.c)
+    def m1(self):
+        print('Hello Parent2')
+class Child(Parent1,Parent2):
+    pass
+c=Child()
+c.m1()
+c.add(4,5)
+c.sub(9,4)
+print(Child.mro())
 
-c=C(-20,30)
-c.add()
-c.diff()
-c.product()
-c.div()
+# Hierarchical Inheritance
+class Parent:
+    def __init__(self):
+        print('Welcome to hierarchical inheritance parent')
+    def m1(self):
+        print('parent method')
+class Child1(Parent):
+    def __init__(self):
+        print('Inheriting from parent resource to child1')
+        super().__init__()
+class Child2(Parent):
+     pass
+c=Child1()
+c.m1()
+c1=Child2()
+c.m1()
+
+
+#multilevel inheritance
+class Parent:
+    def __init__(self):
+        print('level1')
+    def m1(self):
+        print('Hi iam parent method')
+class Child(Parent):
+    def __init__(self):
+        print('level2')
+        super().__init__()
+    def m2(self):
+        print('Hi iam child method')
+class SubChild(Child):
+    def m3(self):
+        print('Iam subchild method')
+cc=SubChild()
+cc.m1()
+cc.m2()
+cc.m3()
+########################
 '''
-
-#-----------------------------------------------
-# is a relation and has a relation
-from functools import *
-def product(x,y):
-    z=x*y
-    return z
-l=[2,3,2,4,5]
-ol=int(reduce(product,l))
-print(ol)
