@@ -1,349 +1,194 @@
 
+#Creating file with the given name
+name=input('Enter filename to create:')
+f=open('C:\\Users\Vijay\\PycharmProjects\\untitled\\venv\\Scripts\\'+name+'.txt','w')
+f.write('Hi')
+f.write(' uma')
+f.write(' maheswari\n')
+f.write('My elder son\'s name is Adithya\n')
+f.write('My younger son\'s name is Pradyumna\n')
+f.write('My husband\'s name is Vijay')
+f.close()
+f=open('C:\\Users\Vijay\\PycharmProjects\\untitled\\venv\\Scripts\\'+name+'.txt','r')
+data=f.readlines()
+for i in data:
+    print(i)
+print(data)
 
-############
-#Interface
-#an abstract class with only abstract methods
-##########################
-#abstraction
-####################
-#abstract method with out child class
-#with abstract class
-#scenario 1
-#cant instantiate for abstract class with abstract method(which is incomplete)
-'''
-from abc import abstractmethod,ABC
-class Parent(ABC):
-    @abstractmethod
-    def m1(self):
-        pass
-p=Parent()
-p.m1()
-#Abstract class with completed abstract method
-#scenario 2
-from abc import abstractmethod,ABC
-class Parent(ABC):
-    @abstractmethod
-    def m1(self):
-        print('HI Everybody')
-p=Parent()
-p.m1()
-#abstract method(use abstract decorator,which u need to import for abc(abstract base class module) module)
-#it will not throw error bcz u dint inherit from abstract class ABC
-#here Abstact_method class is abstract class
-#scenario 3
-
-from abc import abstractmethod
-class Abstract_method:
-    @abstractmethod
-    def m1(self):
-        pass
-a=Abstract_method()
-
-#Scenario 4
-#ABstact parent class with abstract child class
-#cant instantiate
-from abc import abstractmethod,ABC
-class Parent(ABC):
-    @abstractmethod
-    def m1(self):
-        pass
-class Child(Parent):
-    pass
-c=Child()
-# abstract method in abstract class with concrete child class
-from abc import abstractmethod,ABC
-class Parent(ABC):
-    @abstractmethod
-    def m1(self):
-        pass
-class Child(Parent):
-    def m1(self):
-        print('Hello')
-c=Child()
-c.m1()
-#Child class inherited from abstract class interface
-from abc import abstractmethod,ABC
-class Vehicle(ABC):
-    @abstractmethod
-    def engine(self):
-        pass
-    @abstractmethod
-    def tyres(self):
-        pass
-    @abstractmethod
-    def battery(self):
-        pass
-class Car(Vehicle):
-    def engine(self):
-        print('My Car engine is OPOC')
-    def tyres(self):
-        print('My car tyres are TOYO Open Country')
-    def battery(self):
-        print('MY car battery is Diehard Platinum')
-c=Car()
-c.engine()
-c.tyres()
-c.battery()
-
-
-# Abstract class with both abstract and non abstract methods
-
-from abc import abstractmethod,ABC
-class Vehicle(ABC):
-    @abstractmethod
-    def engine(self):
-        pass
-    def tyres(self):
-        print('My car tyres are TOYO Open Country')
-    def battery(self):
-        print('MY car battery is Diehard Platinum')
-class Car(Vehicle):
-    def engine(self):
-        print('My Car engine is OPOC')
-c=Car()
-c.engine()
-c.tyres()
-c.battery()
-###################
-# polymorphism
-###############
-#overriding
-class Father:
-    def input_name(self,name):
-        self.name=name
-    def display(self):
-        print('Father\'s name is: ',self.name)
-class Mother(Father):
-    def display(self):
-        #super().input_name('koteswararao')
-        super().display()
-        print('Mother\'s name is: Ramadevi')
-m=Mother()
-m.input_name('koteswararao')
-m.display()
-
-
-#sample overloading
-class Duck:
-    def m1(self):
-        print('Quack')`12wedfv 
-class Cat:
-    def m1(self):
-        print('Meow')
-class Dog:
-    def m1(self):
-        print('Bow wow')
-class Cow:
-    def m1(self):
-        print('Moo')
-l=[Duck(),Cat(),Dog(),Cow()]
+# Writing data from list to a file and accessing multiple lines
+l=['Uma',"Vijay","Adithya","Pradyumna"]
+f=open('sample.txt','w')
 for i in l:
-    i.m1()
+    f.write(i+'\n')
+f.close()
+f_read=open('sample.txt','r')
+read=f_read.readlines()
+for i in read:
+    print(i,end='')
 
-#same class objects 
-#<,>,<=,>=
-class Student:
-    def __init__(self,name,marks):
-        self.name=name
-        self.marks=marks
-    def score(self):
-        total=0
-        for i in self.marks:
-            total=total+i
-        self.total_marks=total
-    def display(self):
-        print('Name:',self.name)
-        print('Score:',self.total_marks)
-    def __gt__(self,other):
-        return self.total_marks>=other.total_marks
-    def __le__(self,other):
-        return self.total_marks<=other.total_marks
+#Writing Multiple lines in the file
+#Using Exception handling for FileNotFound Exception
+try:
+    l=["Uma\n","Vijay\n","Adithya\n",'Pradyumna\n']
+    f=open('sample.txt','w')
+    print('File Name:',f.name)
+    print('File is opened to Read(Y/N):',f.readable(),' Write(Y/N):',f.writable())
+    f.writelines(l)
+    f.close()
+    print('Is File closed(Yes/No):',f.closed)
+    f=open('sample.txt','r')
+    data=f.readlines()
+    for i in data:
+        print(i,end='')
+except FileNotFoundError as msg:
+    print(msg)
 
-s=Student('Uma',[98,67,87,98,89,100])
-s.score()
-s.display()
-s1=Student('Vijay',[89,90,98,78,89,78])
-s1.score()
-s1.display()
-print(s.name,' gets more marks than ',s1.name,':',s>s1)
-print(s.name,' gets less marks than ',s1.name,':',s<s1)
-print(s.name,' gets more marks than ',s1.name,':',s>=s1)
-print(s.name,' gets more marks than ',s1.name,':',s<=s1)
+#Copying from one file to another
 
-#multiplication
-class  Car:
-    def __init__(self,carmodel,price,company):
-        self.carmodel=carmodel
-        self.price=price
-        self.company=company
-    def display(self):
-        print('Car Details')
-        print('Model:',self.carmodel)
-        print('Price:',self.price)
-        print('Company:',self.company)
-    def __mul__(self,other):
-        return self.price*other.emi_percent
-class EMI:
-    def __init__(self,emi_percent,duration):
-        self.emi_percent=emi_percent
-        self.duration=duration
-    def __mul__(self,other):
-        return (self.emi_percent*100)*other.duration
-c=Car('SE',15000.00,'Toyota')
-if hasattr(c,'display'):
-    c.display()
+try:
+    f=open('sample.txt','r')
+    f1=open('sample1.txt','w')
+    data=f.read()
+    f1.write(data)
+    f.close()
+    f1.close()
+    f1=open('sample1.txt','r')
+    data_f1=f1.read()
+    print(data_f1)
+except FileNotFoundError as msg:
+    print(msg)
+finally:
+    f1.close()
+
+#using seek and tell
+f=open('sample.txt','r')
+print(f.tell())
+print(f.seek(10))
+n=f.read()
+print(f.tell())
+print(n)
+f=open('sample.txt','r')
+f.seek(0)
+print(f.tell())
+print(f.read(2))
+print(f.tell())
+print(f.readline())
+print(f.tell())
+print(f.read(6))
+print(f.tell())
+
+#Using with, seek and tell
+#with open('sample.txt','r') f:
+data="Hi very good morning"
+f=open('abc.txt','w')
+f.write(data)
+with open('abc.txt','r+') as f:
+    text=f.read()
+    print(text)
+    print('Current cursor position: ',f.tell())
+    f.seek(3)#from 3rd position pvm will start replacing given data
+    print('Current cursor position: ', f.tell())
+    f.write('friends!!')
+    print('Current cursor position: ', f.tell())
+    f.seek(0)
+    text=f.read()
+    print('Contents of the file after modification')
+    print(text)
+
+#Checking whether particular file exists or not
+#Using os library, isfile() function (os.path.isfile(filename)
+import os,sys
+fname=input('Enter file name:')
+if os.path.isfile(fname):
+    print('File exists')
+    f=open(fname,'r')
 else:
-    print('Display() method does not exist')
-e=EMI(0.0183,55)
-print('The monthly payment for car:',c*e)
-print('Total emi payment:',e*e)
+    sys.exit(0)
+data=f.read()
+print(data)
+
+#Program to print characters,words and lines present in the given file
+import os,sys
+fname=input('Enter file name:')
+if os.path.isfile(fname):
+    print('File exists')
+    f=open(fname,'r')
+else:
+    sys.exit(0)
+data=f.read()
+print(data)
+f.seek(0)
+lines=f.readlines()
+lcount=ccount=wcount=0
+for line in lines:
+    lcount+=1
+    ccount+=len(line)
+    words=line.split()
+    wcount+=len(words)
+print('Number of lines:',lcount)
+print('Number of words:',wcount)
+print('Number of characters:',ccount)
+
+#Read image file and write into a new image file
+f1=open('IMG_0005.JPG','rb')
+f2=open('Adithya.jpg','wb')
+data=f1.read()
+f2.write(data)
+print('New image is available with the name Adithya.jpg')
+
+#Comma seperated Value File(CSV)
+
+import csv
+with open('sample_csv.csv','w') as f:
+    w=csv.writer(f)
+    w.writerow(['Eno','Ename','Esal','EAddr'])
+    for i in range(5):
+        l=input('Enter values for eno,ename,esal,eadd seperated by comma:').split(',')
+        w.writerow(l)
+    print('Employess added to the sample_csv.csv file')
+
+#CSV File with out printing new line after each inserted line
+import csv
+with open('Employee.csv','w',newline=' ') as f:
+    w=csv.writer(f)
+    f.writerow(['EmpNo','Ename','Sal','Designation','Deptno'])
+    n=int(input('Enter how many employee details you want to insert:'))
+    for i in range(n):
+        l=input('Enter (Empno,Ename,Sal,Designation,Deptno) separated by space').split(' ')
+        f.writerow(l)
+f.close()
+
+#zipping and unzipping of files
+
+from zipfile import *
+f=ZipFile('zip_file.zip','w',ZIP_DEFLATED)
+f.write('namesio.txt')
+f.write('sample.txt')
+f.write('sample_csv.csv')
+print('Zipping of files is done')
+f.close()
+
+#unzipping of files
+from  zipfile import *
+f=ZipFile('zip_file.zip','r',ZIP_STORED)
+files_list=f.namelist()
+for i in files_list:
+    print('Name of file:',i)
+    print('Contents of the File:\n')
+    f=open(i,'r')
+    print(f.read())
+    print()
+    f.close()
 
 
-#############
-#super() method to access parent class variables, methods and constructors
-class Parent:
-    job='yes'
-    def __init__(self,name,city,married):
-        self.name=name
-        self.city=city
-        self.married=married
-    def info(self):
-        print('Hi, my name is ',self.name)
-        print('Currently iam staying in ',self.city)
-        print('Iam ',self.married)
-    @classmethod
-    def jobinfo(cls):
-        print('Iam ',cls.job)
-
-class Child(Parent):
-    job='no'
-    def __init__(self,name,city,married,cname,cage):
-        super().__init__(name,city,married)
-        self.cname=cname
-        self.cage=cage
-    def info(self):
-        super().info()
-        super().jobinfo()
-        print(super().job,self.name)
-        print(self.cname,'is ',self.job,' working')
-c=Child('uma','lafayette','yes','adithya',8)
-c.info()
-
-
-
-#MRO Example 2
-class D:
-    def m1(self):
-        print('D class')
-class E:
-    def m1(self):
-        print('E class')
-class F:
-    def m1(self):
-        print('F class')
-class B(D,E):
-    def m1(self):
-        print('B class')
-class C(D,F):
-    def m1(self):
-        print('C class')
-class A(B,C):
-    def m1(self):
-        print('A class')
-        super().m1()
-a=A()
-a.m1()
-print(A.mro())
-
-#               a
-#           /       \
-#          b          c
-#           \       /
-#               d
-# Method Resolution Order or mro()
-#Classname.mro()
-class a:
-    def m1(self):
-        print('a class')
-class b(a):
-    def m1(self):
-        print('b class')
-class c(a):
-    def m1(self):
-        print('c class')
-class d(b,c):
-    def m1(self):
-        print('d class')
-print(a.mro())
-print(b.mro())
-print(c.mro())
-print(d.mro())
-
-
-#Multiple Ingeritance
-#    a              b
-#       \       /
-#           c
-class Parent1():
-    def add(self,a,b):
-        self.c=a+b
-        print('sum of ',a,' ',b,' is:',self.c)
-    def m1(self):
-        print('hello Parent1')
-class Parent2():
-    def sub(self,a,b):
-        #c=a-b if: a>b else b-a
-        if a>b:
-            self.c=a-b
-        else:
-            self.c=b-a
-        print('Subtraction of ',a,' ',b,' is ',self.c)
-    def m1(self):
-        print('Hello Parent2')
-class Child(Parent1,Parent2):
-    pass
-c=Child()
-c.m1()
-c.add(4,5)
-c.sub(9,4)
-print(Child.mro())
-
-# Hierarchical Inheritance
-class Parent:
-    def __init__(self):
-        print('Welcome to hierarchical inheritance parent')
-    def m1(self):
-        print('parent method')
-class Child1(Parent):
-    def __init__(self):
-        print('Inheriting from parent resource to child1')
-        super().__init__()
-class Child2(Parent):
-     pass
-c=Child1()
-c.m1()
-c1=Child2()
-c.m1()
-
-
-#multilevel inheritance
-class Parent:
-    def __init__(self):
-        print('level1')
-    def m1(self):
-        print('Hi iam parent method')
-class Child(Parent):
-    def __init__(self):
-        print('level2')
-        super().__init__()
-    def m2(self):
-        print('Hi iam child method')
-class SubChild(Child):
-    def m3(self):
-        print('Iam subchild method')
-cc=SubChild()
-cc.m1()
-cc.m2()
-cc.m3()
-########################
-'''
+#Working with directories(making dir,removing directories,list the contents of a directory)
+import os
+current_dir=os.getcwd()
+print('Currently working in ',current_dir,' directory')
+dir_name=input('Enter name for directory to create:')
+os.mkdir(dir_name)
+print('New dir ',dir_name,' created')
+os.makedirs('dir1/dir2/dir3')
+print('Dirs created')
+os.rmdir('dir2/dir3')
+print('Directory dir3 removed')
