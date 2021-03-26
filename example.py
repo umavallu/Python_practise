@@ -1,5 +1,6 @@
 a='my name is uma'
-print(a)
+b='Maheswari'
+print(a+b)
 for x in range(len(a)):
     print('letter is ' + a[x] + ' and position is ' + str(x))
 
